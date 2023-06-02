@@ -1,0 +1,213 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-image: url(./34.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.box {
+  width: 800px;
+  height: 500px;
+  background-color: pink;
+  margin: 100px auto;
+
+}
+
+.box .left {
+  float: left;
+  text-align: center;
+  width: 150px;
+  height: 100%;
+  background-color: burlywood;
+}
+
+.box .left h3 {
+  color: aliceblue;
+  font-weight: normal;
+}
+
+.box .left .sousuo {
+  width: 100%;
+  height: 30px;
+  display: none;
+  background-color: pink;
+  border: none;
+}
+
+.box .left .addhy {
+  width: 80%;
+  height: 20px;
+  margin-top: 20px;
+  display: inline-block;
+  text-decoration: none;
+  color: black;
+  background-color: bisque;
+  margin-bottom: 10px;
+}
+
+.box .left .yh {
+  position: relative;
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  margin-bottom: 5px;
+  background-color: gray;
+}
+
+.box .left .yh span {
+  display: inline-block;
+  width: 100%;
+}
+
+.box .left .yh .removehy {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  width: 20px;
+  line-height: 20px;
+  margin-top: 5px;
+  height: 20px;
+  text-decoration: none;
+  border-radius: 50%;
+  background-color: cyan;
+  color: aliceblue;
+}
+
+.box .right {
+  position: relative;
+  float: right;
+  width: 650px;
+  height: 500px;
+  border: 5px solid pink;
+  box-sizing: border-box;
+
+}
+
+.box .right .top {
+  position: absolute;
+  top: 30px;
+  width: 100%;
+  height: 60%;
+  overflow-y: auto;
+  background-color: #fff;
+
+}
+
+.box .right .title {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  margin-bottom: 15px;
+  /* background-color: chartreuse; */
+  color: peru;
+}
+
+.box .right .top p {
+  display: inline-block;
+  width: 100%;
+
+}
+
+.box .right .top p:first-of-type {
+  margin-top: 30px;
+}
+
+.box .right .top .jieshou span {
+  word-wrap: break-word;
+  list-style-type: none;
+  float: left;
+  height: auto;
+  border-radius: 10px;
+  width: auto;
+  max-width: 200px;
+  background-color: aqua;
+  margin-top: 10px;
+  margin-left: 5px;
+}
+
+
+
+.box .right .top .fasong span {
+  word-wrap: break-word;
+  list-style-type: none;
+  float: right;
+  height: auto;
+  border-radius: 10px;
+  width: auto;
+  max-width: 200px;
+  background-color: aqua;
+  margin-top: 10px;
+  margin-left: 5px;
+}
+
+.box .right .top .fasong img {
+  margin-right: 30px;
+  float: right;
+  width: 200px;
+}
+
+.box .right .top .jieshou img {
+  float: left;
+  width: 200px;
+  margin-left: 30px;
+}
+
+.box .right .bottom {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 30%;
+}
+
+.box .right .bottom #tx {
+  width: 100%;
+  height: 70%;
+  border: 2px solid pink;
+}
+
+#tp {
+  display: none;
+
+}
+
+.select-pic {
+  display: inline-block;
+
+  width: 80px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  background-color: aqua;
+  box-sizing: border-box;
+}
+
+.select-pic,
+.sendmes,
+.look {
+  cursor: pointer;
+  width: 80px;
+  height: 30px;
+  margin-left: 120px;
+  border: none;
+  background-color: aqua;
+}
+
+.active {
+  background-color: fuchsia;
+}
+
+.box .left .yh span:hover {
+  background-color: darkorange;
+}
+
+.time {
+  text-align: center;
+  margin: 5px;
+}

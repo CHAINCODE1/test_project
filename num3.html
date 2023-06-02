@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <script src="./lib-generate-test-usersig.min.js"></script>
+  <script src="./GenerateTestUserSig.js"></script>
+  <script src="./node_modules/tim-js-sdk/tim-js.js"></script>
+  <script src="./node_modules/tim-upload-plugin/index.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .box {
+      position: relative;
+      padding-top: 100px;
+      width: 300px;
+      height: 300px;
+      margin: 100px auto;
+      background-color: aquamarine;
+      box-sizing: border-box;
+      border-radius: 10px;
+      box-shadow: 20px 0px 10px 0px rgba(0,0,0,0.5) ;
+    }
+    .box input{
+      width:200px;
+      height: 30px;
+    }
+    .box button{
+      position: absolute;
+      top: 200px;
+      right: 20px;
+      width:100px;
+      height: 50px;
+      border-radius: 10px;
+      border-color: darkturquoise;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    用户名：<input type="text">
+    <button>进入聊天</button>
+  </div>
+</body>
+<script>
+  var options = {
+    SDKAppID: 1400814087 // 接入时需要将0替换为您的即时通信 IM 应用的 SDKAppID
+  };
+  // 创建 SDK 实例，`TIM.create()`方法对于同一个 `SDKAppID` 只会返回同一份实例
+  var tim = TIM.create(options);
+  // 设置 SDK 日志输出级别，详细分级请参见 setLogLevel 接口的说明
+  tim.setLogLevel(0); // 普通级别，日志量较多，接入时建议使用
+  // tim.setLogLevel(1); // release 级别，SDK 输出关键信息，生产环境时建议使用
+
+
+  // 注册腾讯云即时通信 IM 上传插件
+  tim.registerPlugin({ 'tim-upload-plugin': TIMUploadPlugin });
+
+
+  let obj = {
+    SDKAppID: 1400814087,
+    secretKey: 'ec99851c094321ce588cdd35693b9d57f50f9e6bb72005d9fa250cff58e36ce5',
+    userID: '大鸡巴'
+  }
+ 
+  let promise = tim.login({ userID: '大鸡巴', userSig: genTestUserSig(obj).userSig });
+  promise.then(function (imResponse) {
+    console.log(imResponse, '--'); // 登录成功
+    if (imResponse.data.repeatLogin === true) {
+      // 标识帐号已登录，本次登录操作为重复登录。v2.5.1 起支持
+      console.log(imResponse, '---');
+    }
+  }).catch(function (imError) {
+    console.warn('login error:', imError); // 登录失败的相关信息
+  });
+
+
+  //  发送文本消息，Web 端与小程序端相同
+
+
+  let onSdkReady = function (event) {
+    // 1. 创建消息实例，接口返回的实例可以上屏
+    let message = tim.createTextMessage({
+      to: '小谢',
+      conversationType: TIM.TYPES.CONV_C2C,
+      // 消息优先级，用于群聊（v2.4.2起支持）。如果某个群的消息超过了频率限制，后台会优先下发高优先级的消息，详细请参考：https://cloud.tencent.com/document/product/269/3663#.E6.B6.88.E6.81.AF.E4.BC.98.E5.85.88.E7.BA.A7.E4.B8.8E.E9.A2.91.E7.8E.87.E6.8E.A7.E5.88.B6)
+      // 支持的枚举值：TIM.TYPES.MSG_PRIORITY_HIGH, TIM.TYPES.MSG_PRIORITY_NORMAL（默认）, TIM.TYPES.MSG_PRIORITY_LOW, TIM.TYPES.MSG_PRIORITY_LOWEST
+      // priority: TIM.TYPES.MSG_PRIORITY_NORMAL,
+      payload: {
+        text: 'Hello world!'
+      }
+    });
+    // 2. 发送消息
+    let promise1 = tim.sendMessage(message);
+    promise1.then(function (imResponse) {
+      // 发送成功
+      console.log(imResponse);
+    }).catch(function (imError) {
+      // 发送失败
+      console.warn('sendMessage error:', imError);
+    });
+    let onMessageReceived = function (e) {
+      // event.data - 存储 Message 对象的数组 - [Message]
+      console.log(e);
+    };
+    tim.on(TIM.EVENT.MESSAGE_RECEIVED, onMessageReceived);
+  };
+  tim.on(TIM.EVENT.SDK_READY, onSdkReady);
+</script>
+</html>
